@@ -2,18 +2,16 @@ package xdg
 
 import "os"
 
-var home = os.Getenv("HOME")
-
 func defaultDataHome() string {
-	return home + "/.local/share"
+	return os.Getenv("HOME") + "/.local/share"
 }
 
 func defaultConfigHome() string {
-	return home + "/.config"
+	return os.Getenv("HOME") + "/.config"
 }
 
 func defaultCacheHome() string {
-	return home + "/.cache"
+	return os.Getenv("HOME") + "/.cache"
 }
 
 func defaultDataDirs() []string {
