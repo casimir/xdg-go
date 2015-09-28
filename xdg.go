@@ -36,12 +36,12 @@ func CacheHome() string {
 	return defaultCacheHome()
 }
 
-// DataDirs returns the ordered list of base directories where data should be
-// searched.
+// DataDirs returns the ordered list of base directories where application data
+// should be searched.
 func DataDirs() []string {
 	dirs := os.Getenv("XDG_DATA_DIRS")
 	if len(dirs) > 0 {
-		return SplitDirs(dirs)
+		return strings.Split(dirs, ":")
 	}
 	return defaultDataDirs()
 }
@@ -49,19 +49,11 @@ func DataDirs() []string {
 // ConfigDirs returns the ordered list of base directories where configuration
 // should be searched.
 func ConfigDirs() []string {
-	dirs := os.Getenv("XDG_DATA_HOME")
+	dirs := os.Getenv("XDG_CONFIG_DIRS")
 	if len(dirs) > 0 {
-		return SplitDirs(dirs)
+		return strings.Split(dirs, ":")
 	}
 	return defaultConfigDirs()
-}
-
-func JoinDirs(dirs []string) string {
-	return strings.Join(dirs, ":")
-}
-
-func SplitDirs(dirs string) []string {
-	return strings.Split(dirs, ":")
 }
 
 // App is an aggregation of XDG information for a named application. Useful to
@@ -70,14 +62,17 @@ type App struct {
 	Name string
 }
 
+// DataPath determines the full path of a data file.
 func (a App) DataPath(file string) string {
 	return filepath.Join(DataHome(), a.Name, file)
 }
 
+// ConfigPath determines the full path of a data file.
 func (a App) ConfigPath(file string) string {
 	return filepath.Join(ConfigHome(), a.Name, file)
 }
 
+// CachePath determines the full path of a cached file.
 func (a App) CachePath(file string) string {
 	return filepath.Join(CacheHome(), a.Name, file)
 }
