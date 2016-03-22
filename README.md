@@ -14,7 +14,7 @@ Alternatively you can create a context that would determine full paths for your 
 ```
 app := xdg.App{Name: "someApp"}
 configFile := app.ConfigPath("someApp.toml")
-dataFile := app.ConfigPath("data.json")
+dataFile := app.DataPath("data.json")
 ```
 
 ## Supported path types
