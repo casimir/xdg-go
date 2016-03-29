@@ -2,22 +2,22 @@ package xdg
 
 import "os"
 
-func defaultDataHome() string {
+func DataHome() string {
 	return os.Getenv("APPDATA")
 }
 
-func defaultConfigHome() string {
+func ConfigHome() string {
 	return os.Getenv("APPDATA")
 }
 
-func defaultCacheHome() string {
+func CacheHome() string {
 	return os.Getenv("TEMP")
 }
 
-func defaultDataDirs() []string {
+func DataDirs() []string {
 	return []string{os.Getenv("APPDATA"), os.Getenv("LOCALAPPDATA")}
 }
 
-func defaultConfigDirs() []string {
+func ConfigDirs() []string {
 	return []string{os.Getenv("APPDATA"), os.Getenv("LOCALAPPDATA")}
 }

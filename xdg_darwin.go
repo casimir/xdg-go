@@ -2,22 +2,22 @@ package xdg
 
 import "os"
 
-func defaultDataHome() string {
+func DataHome() string {
 	return os.Getenv("HOME") + "/Library"
 }
 
-func defaultConfigHome() string {
+func ConfigHome() string {
 	return os.Getenv("HOME") + "/Library/Preferences"
 }
 
-func defaultCacheHome() string {
+func CacheHome() string {
 	return os.Getenv("HOME") + "/Library/Caches"
 }
 
-func defaultDataDirs() []string {
+func DataDirs() []string {
 	return []string{"/Library"}
 }
 
-func defaultConfigDirs() []string {
+func ConfigDirs() []string {
 	return []string{"/Library/Preferences", "/Library/Application Support"}
 }

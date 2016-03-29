@@ -1,4 +1,4 @@
-xdg-go [![GoDoc](https://godoc.org/github.com/casimir/xdg-go?status.svg)](https://godoc.org/github.com/casimir/xdg-go) [![Go Report Card](http://goreportcard.com/badge/casimir/xdg-go)](http://goreportcard.com/report/casimir/xdg-go)
+xdg-go [![GoDoc](https://godoc.org/github.com/casimir/xdg-go?status.svg)](https://godoc.org/github.com/casimir/xdg-go) [![codebeat badge](https://codebeat.co/badges/845ce4ee-6285-45dc-a790-e56c00d0f35c)](https://codebeat.co/projects/github-com-casimir-xdg-go)
 =======================================================================================================================================================================================================================================
 
 ## Quickstart
@@ -29,4 +29,5 @@ This is a KISS implementation of the XDG Base Directory Specification. As of now
 The specification is Linux centric but this implementation targets more: Linux, OSX and Windows. Default values has been chosen regarding both the specification and the OS conventions. Note than you can override these values with the corresponding environment variables.
 
 There are a lot of OSes missing but supporting them implies a good knowledge of these conventions and philosophies, contributors maybe?
+
 

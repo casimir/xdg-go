@@ -2,24 +2,24 @@ package xdg
 
 import "os"
 
-func defaultDataHome() string {
+func DataHome() string {
 	return os.Getenv("HOME") + "/.local/share"
 }
 
-func defaultConfigHome() string {
+func ConfigHome() string {
 	return os.Getenv("HOME") + "/.config"
 }
 
-func defaultCacheHome() string {
+func CacheHome() string {
 	return os.Getenv("HOME") + "/.cache"
 }
 
-func defaultDataDirs() []string {
-	// The specification gives a default value with trailing slashes but only
+func DataDirs() []string {
+	// The specification gives a  value with trailing slashes but only
 	// for this value. Seems odd enough to take the liberty of removing them.
 	return []string{"/usr/local/share", "/usr/share"}
 }
 
-func defaultConfigDirs() []string {
+func ConfigDirs() []string {
 	return []string{"/etc/xdg"}
 }
