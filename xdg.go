@@ -12,63 +12,52 @@ type App struct {
 	Name string
 }
 
-// DataPath determines the full path of a data file.
-func (a App) DataPath(file string) string {
-	base := os.Getenv("XDG_DATA_HOME")
+func (a App) path(envVar string, defaultFn func() string, file string) string {
+	base := os.Getenv(envVar)
 	if base == "" {
-		base = DataHome()
+		base = defaultFn()
 	}
 	return filepath.Join(base, a.Name, file)
+}
+
+// DataPath determines the full path of a data file.
+func (a App) DataPath(file string) string {
+	return a.path("XDG_DATA_HOME", DataHome, file)
 }
 
 // ConfigPath determines the full path of a data file.
 func (a App) ConfigPath(file string) string {
-	base := os.Getenv("XDG_CONFIG_HOME")
-	if base == "" {
-		base = ConfigHome()
-	}
-	return filepath.Join(base, a.Name, file)
+	return a.path("XDG_CONFIG_HOME", ConfigHome, file)
 }
 
 // CachePath determines the full path of a cached file.
 func (a App) CachePath(file string) string {
-	base := os.Getenv("XDG_CACHE_HOME")
-	if base == "" {
-		base = CacheHome()
+	return a.path("XDG_CACHE_HOME", CacheHome, file)
+}
+
+func (a App) multiPaths(envVar string, defaultFn func() []string, file string) []string {
+	var bases []string
+	env := os.Getenv(envVar)
+	if env != "" {
+		bases = strings.Split(env, ":")
+	} else {
+		bases = defaultFn()
 	}
-	return filepath.Join(base, a.Name, file)
+	var dirs []string
+	for _, it := range bases {
+		dirs = append(dirs, filepath.Join(it, a.Name, file))
+	}
+	return dirs
 }
 
 // SystemDataPaths determines system-wide possible paths for a data file.
 func (a App) SystemDataPaths(file string) []string {
-	var bases []string
-	env := os.Getenv("XDG_DATA_DIRS")
-	if env != "" {
-		bases = strings.Split(env, ":")
-	} else {
-		bases = DataDirs()
-	}
-	var dirs []string
-	for _, it := range bases {
-		dirs = append(dirs, filepath.Join(it, a.Name, file))
-	}
-	return dirs
+	return a.multiPaths("XDG_DATA_DIRS", DataDirs, file)
 }
 
 // SystemConfigPaths determines system-wide possible paths for a config file.
 func (a App) SystemConfigPaths(file string) []string {
-	var bases []string
-	env := os.Getenv("XDG_CONFIG_DIRS")
-	if env != "" {
-		bases = strings.Split(env, ":")
-	} else {
-		bases = ConfigDirs()
-	}
-	var dirs []string
-	for _, it := range bases {
-		dirs = append(dirs, filepath.Join(it, a.Name, file))
-	}
-	return dirs
+	return a.multiPaths("XDG_CONFIG_DIRS", ConfigDirs, file)
 }
 
 var defaultApp App
